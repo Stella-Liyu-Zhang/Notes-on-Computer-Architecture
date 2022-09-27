@@ -1,4 +1,6 @@
-Reading notes of Computer Organization and Design - The Hardware/Software Interface (Arm Edition)
+# Notes on Computer Architecture
+
+**Reading notes of Computer Organization and Design - The Hardware/Software Interface (Arm Edition)**
 
 # Chapter 1.6
 
