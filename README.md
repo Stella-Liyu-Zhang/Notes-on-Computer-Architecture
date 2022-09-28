@@ -14,8 +14,7 @@ Also called execution time.
 
 Also called bandwidth
 
-- Another measure of performance, number of tasks completed per unit time
-
+- Another measure of performance, number of tasks completed per unit tim
 ## Performance and Execution time
 
 To maximize performance, we want to
