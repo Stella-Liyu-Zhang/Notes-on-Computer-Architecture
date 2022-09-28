@@ -2,6 +2,13 @@
 
 **Reading notes of Computer Organization and Design - The Hardware/Software Interface (Arm Edition)**
 
+# Table of Content
+
+- [Chapter 1.6 Performance](#chapter-16)
+  - [Lecture 2](./09-27.md)
+- [Chapter 1.10 Fallacies and Pitfalls](#chapter-110-fallacies-and-pitfalls)
+  - [Lecture 3]()
+
 # Chapter 1.6
 
 ## Response time
@@ -15,6 +22,7 @@ Also called execution time.
 Also called bandwidth
 
 - Another measure of performance, number of tasks completed per unit tim
+
 ## Performance and Execution time
 
 To maximize performance, we want to
@@ -100,3 +108,75 @@ how these components affect the factors in the CPU performance equation
 ![](assets/20220927070035.jpg)
 
 > Choose B
+
+# Chapter 1.10 Fallacies and Pitfalls
+
+Pitfall
+
+- Easily made mistakes
+- Expecting the improvement of one aspect of a computer to increase overall performance by an amount proportional to the size of the improvement.
+- Pitfall: Using a subset of the performance equation as a performance metric.
+
+Fallacy
+
+- Designing for performance and designing for energy efficiency ar
+  unrelated goals.
+
+## Amdahl’s Law
+
+A rule stating that
+the performance
+enhancement possible
+with a given improvement
+is limited by the amount
+that the improved feature
+is used. It is a quantitative
+version of the law of
+diminishing returns.
+Science must begin
+with myths, and the
+criticism of myths.
+Sir Karl Popper, The
+Philosophy of Science,
+1957
+
+> A simple design problem illustrates it well. Suppose a program runs in 100
+> seconds on a computer, with multiply operations responsible for 80 seconds of this
+> time. How much do I have to improve the speed of multiplication if I want my
+> program to run five times faster?
+>
+> ![](assets/20220928160846.jpg)
+> ![](assets/20220928160928.jpg)
+> That is, there is no amount by which we can enhance-multiply to achieve a fivefol
+> increase in performance, if multiply accounts for only 80% of the workload. The
+> performance enhancement possible with a given improvement is limited by the amount
+> that the improved feature is used. In everyday life this concept also yields what we call
+> the law of diminishing returns.
+
+One alternative to time is MIPS (million instructions per second).
+
+## million instructions per second (MIPS)
+
+A measurement of
+program execution speed
+based on the number of
+millions of instructions.
+MIPS is computed as the
+instruction count divided
+by the product of the
+execution time and 106
+![](assets/20220928162421.jpg)
+
+There are three problems with using MIPS as a measure for comparing computers.
+
+- First, MIPS specifies the instruction execution rate but does not take into account
+  the capabilities of the instructions. We cannot compare computers with different
+  instruction sets using MIPS, since the instruction counts will certainly differ.
+
+- Second, MIPS varies between programs on the same computer; thus, a computer
+  cannot have a single MIPS rating.
+
+For example, by substituting for execution time,
+we see the relationship between MIPS, clock rate, and CPI:
+
+![](assets/20220928162603.jpg)
