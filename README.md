@@ -5,9 +5,11 @@
 # Table of Content
 
 - [Chapter 1.6 Performance](#chapter-16)
-  - [Lecture 2](./09-27.md)
+  - [Week 1 Lecture 2](./09-27.md)
 - [Chapter 1.10 Fallacies and Pitfalls](#chapter-110-fallacies-and-pitfalls)
-  - [Lecture 3]()
+  - [Week 2 Lecture 3]()
+- [Week 1 142L](09-29.md)
+- [Week 1 Discussion](Week%201%20DI.md)
 
 # Chapter 1.6
 
@@ -145,8 +147,7 @@ Philosophy of Science,
 > time. How much do I have to improve the speed of multiplication if I want my
 > program to run five times faster?
 >
-> ![](assets/20220928160846.jpg)
-> ![](assets/20220928160928.jpg)
+> ![](assets/20220928160846.jpg) > ![](assets/20220928160928.jpg)
 > That is, there is no amount by which we can enhance-multiply to achieve a fivefol
 > increase in performance, if multiply accounts for only 80% of the workload. The
 > performance enhancement possible with a given improvement is limited by the amount
