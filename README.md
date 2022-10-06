@@ -4,12 +4,23 @@
 
 # Table of Content
 
+**Week 1:**
+
 - [Chapter 1.6 Performance](#chapter-16)
-  - [Week 1 Lecture 2](./09-27.md)
 - [Chapter 1.10 Fallacies and Pitfalls](#chapter-110-fallacies-and-pitfalls)
-  - [Week 2 Lecture 3]()
-- [Week 1 142L](09-29.md)
+- [Week 1 Lecture 2](./09-27.md)
+- [Week 1 Lecture 3]()
+- [Week 1 CSE 142L](09-29.md)
 - [Week 1 Discussion](Week%201%20DI.md)
+
+**Week 2:**
+
+- []()
+- [Section 6.2, 6.3 of Computer Systems](#sections-62-and-63-of-the-bryant-computer-systems-a-programmers-perspective-text)
+- [Section ]()
+- [Week 2 Lecture 4](10-04.md)
+- [Week 2 Lecture 5]()
+-
 
 # Chapter 1.6
 
@@ -269,3 +280,35 @@ $ less output
 Recall that a register is a word-sized storage unit located directly on the CPU. There may be separate registers for data, instructions, and addresses. For example, the Intel CPU has a total of 16 registers for storing 64-bit data:
 
 %rax, %rbx, %rcx, %rdx, %rdi, %rsi, %rsp, %rbp, and %r8-%r15. All the registers save for %rsp and %rbp hold general-purpose 64-bit data. While a program may interpret a register’s contents as, say, an integer or an address, the register itself makes no distinction. Programs can read from or write to all sixteen registers.
+
+# Sections 6.2 and 6.3 of the Bryant (Computer Systems: A Programmer's Perspective) text
+
+## 6.2 Locality
+
+Locality is typically described as having two distinct forms: temporal locality and spatial locality.
+
+- In a program with good temporal locality, a memory location
+  that is referenced once is likely to be referenced again multiple times in the near future.
+- In a program with good spatial locality, if a memory location is referenced once, then the program is likely to reference a nearby memory location in the near
+  future.
+
+Programmers should understand the principle of locality because, in general,programs with good locality run faster than programs with poor locality.
+
+## 6.3 The Memory Hierarchy
+
+- Storage technology.
+  - Different storage technologies have widely different access times. Faster technologies cost more per byte than slower ones and have less capacity. The gap between CPU and main memory speed is widening.
+- Computer software.
+  - Well-written programs tend to exhibit good locality
+    ![](assets/20221006113745.jpg)
+
+In general, the storage devices get slower, cheaper, and larger as we move from higher to lower levels.
+
+- At the highest level (L0) are a small number of fast
+  CPU registers that the CPU can access in a single clock cycle.
+- Next are one or more small to moderate-size SRAM-based cache memories that can be accessed in a few CPU clock cycles. These are followed by a large DRAM-based main
+  memory that can be accessed in tens to hundreds of clock cycles.
+- Next are slow but enormous local disks.
+- Finally, some systems even include an additional level
+  of disks on remote servers that can be accessed over a network. For example, distributed file systems such as the Andrew File System (AFS) or the Network File System (NFS) allow a program to access files that are stored on remote
+  network-connected servers. Similarly, the World Wide Web allows programs to access remote files stored on Web servers anywhere in the world.
