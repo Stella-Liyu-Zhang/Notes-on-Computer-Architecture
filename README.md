@@ -9,18 +9,18 @@
 - [Chapter 1.6 Performance](#chapter-16)
 - [Chapter 1.10 Fallacies and Pitfalls](#chapter-110-fallacies-and-pitfalls)
 - [Week 1 Lecture 2](./09-27.md)
-- [Week 1 Lecture 3]()
+- [Week 1 Lecture 3](./09-29.md)
 - [Week 1 CSE 142L](09-29.md)
 - [Week 1 Discussion](Week%201%20DI.md)
 
 **Week 2:**
 
-- []()
+- [Section Sections 6, 7.1-7.5, and 7.7 of the DIS (Dive into Systems) text](#sections-6-71-75-and-77-of-the-dis-dive-into-systems-text)
 - [Section 6.2, 6.3 of Computer Systems](#sections-62-and-63-of-the-bryant-computer-systems-a-programmers-perspective-text)
-- [Section ]()
 - [Week 2 Lecture 4](10-04.md)
-- [Week 2 Lecture 5]()
--
+- [Week 2 Lecture 5](./10-06.md)
+- [Week 2 CSE 142L](09-29.md)
+- [Week 2 Discussion](Week%201%20DI.md)
 
 # Chapter 1.6
 
@@ -312,3 +312,16 @@ In general, the storage devices get slower, cheaper, and larger as we move from 
 - Finally, some systems even include an additional level
   of disks on remote servers that can be accessed over a network. For example, distributed file systems such as the Andrew File System (AFS) or the Network File System (NFS) allow a program to access files that are stored on remote
   network-connected servers. Similarly, the World Wide Web allows programs to access remote files stored on Web servers anywhere in the world.
+
+## 6.3.1 Caching in the Memory Hierarchy
+
+In general, a cache (pronounced “cash”) is a small, fast storage device that acts as
+a staging area for the data objects stored in a larger, slower device. The process of
+using a cache is known as caching (pronounced “cashing”)
+
+The central idea of a memory hierarchy is that for each k, the faster and smaller
+storage device at level k serves as a cache for the larger and slower storage device at level k + 1. In other words, each level in the hierarchy caches data objects from
+the next lower level. For example, the local disk serves as a cache for files (such
+as Web pages) retrieved from remote disks over the network, the main memory
+serves as a cache for data on the local disks, and so on, until we get to the smallest
+cache of all, the set of CPU registers
