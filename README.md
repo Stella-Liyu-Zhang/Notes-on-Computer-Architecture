@@ -10,7 +10,7 @@
 - [Chapter 1.10 Fallacies and Pitfalls](#chapter-110-fallacies-and-pitfalls)
 - [Week 1 Lecture 2](./09-27.md)
 - [Week 1 Lecture 3](./09-29.md)
-- [Week 1 CSE 142L](09-29.md)
+- [Week 1 CSE 142L](./09-30-142L.md)
 - [Week 1 Discussion](Week%201%20DI.md)
 
 **Week 2:**
@@ -19,7 +19,7 @@
 - [Section 6.2, 6.3 of Computer Systems](#sections-62-and-63-of-the-bryant-computer-systems-a-programmers-perspective-text)
 - [Week 2 Lecture 4](10-04.md)
 - [Week 2 Lecture 5](./10-06.md)
-- [Week 2 CSE 142L](09-29.md)
+- [Week 2 CSE 142L](./10-07-142L.md))
 - [Week 2 Discussion](Week%201%20DI.md)
 
 # Chapter 1.6
