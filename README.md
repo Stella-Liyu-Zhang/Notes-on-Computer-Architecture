@@ -22,6 +22,10 @@
 - [Week 2 CSE 142L](./10-07-142L.md))
 - [Week 2 Discussion](Week%201%20DI.md)
 
+**Week 3:**
+
+- [Section 6.4 (stopping at 6.4.3) of the Bryant (Computer Systems: A Programmer's Perspective) ](#section-64-stopping-at-643-of-the-bryant-computer-systems-a-programmers-perspective)
+
 # Chapter 1.6
 
 ## Response time
@@ -325,3 +329,57 @@ the next lower level. For example, the local disk serves as a cache for files (s
 as Web pages) retrieved from remote disks over the network, the main memory
 serves as a cache for data on the local disks, and so on, until we get to the smallest
 cache of all, the set of CPU registers
+
+# Section 6.4 (stopping at 6.4.3) of the Bryant (Computer Systems: A Programmer's Perspective)
+
+Consider a computer system where each memory address has m bits that form
+`M = 2m` unique addresses. As illustrated in Figure 6.25(a), a cache for such a
+machine is organized as an array of `S = 2s` cache sets. Each set consists of E cache
+lines. Each line consists of a data block of B = 2b bytes, a valid bit that indicates
+whether or not the line contains meaningful information, and `t = m − (b + s)` tag
+bits (a subset of the bits from the current block’s memory address) that uniquely identify the block stored in the cache line.
+
+## General organization of cache (S, E, B, m).
+
+(a) A cache is an array
+of sets. Each set contains
+one or more lines. Each
+line contains a valid bit,
+some tag bits, and a block
+of data.
+
+(b) The cache
+organization induces a
+partition of the `m` address
+bits into `t `tag bits, `s` set
+index bits, and `b` block
+offset bits.
+
+> . The concatenation of the tag and index bits uniquely identifies each block in
+> memory. For example, block 0 consists of addresses 0 and 1, block 1 consists
+> of addresses 2 and 3, block 2 consists of addresses 4 and 5, and so on.
+> . Since there are eight memory blocks but only four cache sets, multiple blocks
+> map to the same cache set (i.e., they have the same set index). For example,
+> blocks 0 and 4 both map to set 0, blocks 1 and 5 both map to set 1, and so on.
+> . Blocks that map to the same cache set are uniquely identified by the tag. For
+> example, block 0 has a tag bit of 0 while block 4 has a tag bit of 1, block 1 has
+> a tag bit of 0 while block 5 has a tag bit of 1, and so on.
+
+## 6.4.2 Direct-Mapped Caches
+
+. Conflict misses in direct-mapped caches typically occur when programs
+access arrays whose sizes are a power of 2.
+
+> Example: A: 10100 B: 10110 Yes
+
+In a direct-mapped cache with 4 blocks, the indexing will just use the 2 least-significant bits of the block address (since we need two bits to count the 4 blocks 0, 1, 2, and 3). Therefore conflicts will only occur when the 2 least-significant bits of the addresses are the same. Here, A maps to cache block 0 and B maps to cache block 2, so there is no conflict.
+
+> A: 11011 B: 01001 Yes
+>
+> In a direct-mapped cache with 4 blocks, the indexing will just use the 2 least-significant bits of the block address (since we need two bits to count the 4 blocks 0, 1, 2, and 3). Therefore conflicts will only occur when the 2 least-significant bits of the addresses are the same. Here, A maps to cache block 3 and B maps to cache block 1, so there is no conflict.
+
+> A: 00101 B: 11001 No
+>
+> In a direct-mapped cache with 4 blocks, the indexing will just use the 2 least-significant bits of the block address (since we need two bits to count the 4 blocks 0, 1, 2, and 3). Therefore conflicts will occur when the 2 least-significant bits of the addresses are the same. Here, A maps to cache block 1 and B also maps to cache block 1, so they conflict.
+
+![](assets/20221011115310.jpg)
