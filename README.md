@@ -25,6 +25,7 @@
 **Week 3:**
 
 - [Section 6.4 (stopping at 6.4.3) of the Bryant (Computer Systems: A Programmer's Perspective) ](#section-64-stopping-at-643-of-the-bryant-computer-systems-a-programmers-perspective)
+- [Section 6.4 (6.4.3-end) of the Bryant (Computer Systems: A Programmer's Perspective)](#section-64-643-end-of-the-bryant-computer-systems-a-programmers-perspective)
 
 # Chapter 1.6
 
@@ -383,3 +384,106 @@ In a direct-mapped cache with 4 blocks, the indexing will just use the 2 least-s
 > In a direct-mapped cache with 4 blocks, the indexing will just use the 2 least-significant bits of the block address (since we need two bits to count the 4 blocks 0, 1, 2, and 3). Therefore conflicts will occur when the 2 least-significant bits of the addresses are the same. Here, A maps to cache block 1 and B also maps to cache block 1, so they conflict.
 
 ![](assets/20221011115310.jpg)
+
+# Section 6.4 (6.4.3-end) of the Bryant (Computer Systems: A Programmer's Perspective)
+
+## Set associative cache
+
+(1 < E < C/B). In a set associative cache, each set contains more than one line. This particular example shows a two-way set associative cache.
+
+![](assets/20221013125709.jpg)
+
+## 6.4.7 Performance Impact of Cache Parameters
+
+Cache performance is evaluated with a number of metrics:
+
+`Miss rate`
+
+- The fraction of memory references during the execution of a program, or a part of a program, that miss. It is computed as `#` misses`/` references.
+
+`Hit rate.`
+
+- The fraction of memory references that hit. It is computed as 1 − miss rate.
+
+`Hit time.`
+
+- The time to deliver a word in the cache to the CPU, including the time for set selection, line identification, and word selection. Hit time is on the
+  order of several clock cycles for L1 caches
+
+## Impact of Cache Size
+
+On the one hand, a larger cache will tend to increase the hit rate. On the other hand, it is always harder to make large memories run faster. As a result, larger caches tend to increase the hit time. This explains why an L1 cache is smaller than an L2 cache, and an L2 cache is smaller than an L3 cache.
+
+## Impact of Block Size
+
+Large blocks are a mixed blessing. On the one hand, larger blocks can help increase the hit rate by exploiting any spatial locality that might exist in a program.
+However, for a given cache size, larger blocks imply a smaller number of cache lines, which can hurt the hit rate in programs with more temporal locality than spatial locality. Larger blocks also have a negative impact on the miss penalty,
+since larger blocks cause larger transfer times. Modern systems such as the Core i7 compromise with cache blocks that contain 64 bytes.
+
+## Impact of Associativity
+
+The issue here is the impact of the choice of the parameter E, the number of cache lines per set. The advantage of higher associativity (i.e., larger values of E) is that it decreases the vulnerability of the cache to thrashing due to conflict misses. However, higher associativity comes at a significant cost. Higher associativity is
+expensive to implement and hard to make fast. It requires more tag bits per
+line, additional LRU state bits per line, and additional control logic. Higher
+associativity can increase hit time, because of the increased complexity, and it can
+also increase the miss penalty because of the increased complexity of choosing a
+victim line.
+The choice of associativity ultimately boils down to a trade-off between the
+hit time and the miss penalty. Traditionally, high-performance systems that pushed
+the clock rates would opt for smaller associativity for L1 caches (where the miss
+penalty is only a few cycles) and a higher degree of associativity for the lower
+levels, where the miss penalty is higher. For example, in Intel Core i7 systems, the
+L1 and L2 caches are 8-way associative, and the L3 cache is 16-way.
+
+## Impact of Write Strategy
+
+Write-through caches are simpler to implement and can use a write buffer that works independently of the cache to update memory. Furthermore, read misses are less expensive because they do not trigger a memory write.
+On the other
+hand, write-back caches result in fewer transfers, which allows more bandwidth
+to memory for I/O devices that perform DMA. Further, reducing the number of
+transfers becomes increasingly important as we move down the hierarchy and the
+transfer times increase. In general, caches further down the hierarchy are more
+likely to use write-back than write-through
+
+## Aside Cache lines, sets, and blocks: What’s the difference?
+
+It is easy to confuse the distinction between cache lines, sets, and blocks. Let’s review these ideas and
+make sure they are clear:
+
+- A block is a fixed-size packet of information that moves back and forth between a cache and main
+  memory (or a lower-level cache).
+- A line is a container in a cache that stores a block, as well as other information such as the valid
+  bit and the tag bits.
+- A set is a collection of one or more lines. Sets in direct-mapped caches consist of a single line. Sets
+  in set associative and fully associative caches consist of multiple lines.
+
+In direct-mapped caches, sets and lines are indeed equivalent. However, in associative caches, sets and
+lines are very different things and the terms cannot be used interchangeably.
+
+Since a line always stores a single block, the terms “line” and “block” are often used interchangeably. For example, systems professionals usually refer to the “line size” of a cache, when what they really mean is the block size. This usage is very common and shouldn’t cause any confusion as long as you understand the distinction between blocks and lines.
+
+> Readin quiz 10/13
+> Match the types of caches to their descriptions, assuming a cache that can hold 16 data blocks.
+> !
+
+- Direct-mapped cache
+  - Any particular data block can be stored in only one location in the cache
+- 4-way set associative cache
+  - Any particular data block can be stored in one of 4 locations in the cache
+- Fully associative cache
+  - Any particular data block can be stored in one of 16 locations (any location) in the cache
+- 2-way set associative cache
+  - Any particular data block can be stored in one of 2 locations in the cache
+- 8-way set associative cache
+  - Any particular data block can be stored in one of 8 locations in the cache
+
+# 6.5 Writing Cache-Friendly Code
+
+## Cache friendly, in the sense that it has good locality.
+
+Here is the basic approach we use to try to ensure that our code is cache friendly.
+
+1. Make the common case go fast. Programs often spend most of their time in a few core functions. These functions often spend most of their time in a few loops. So focus on the inner loops of the core functions and ignore the rest.
+2. Minimize the number of cache misses in each inner loop.All other things being
+   equal, such as the total number of loads and stores, loops with better miss rates
+   will run faster.
