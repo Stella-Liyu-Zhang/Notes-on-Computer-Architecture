@@ -27,6 +27,11 @@
 - [Section 6.4 (stopping at 6.4.3) of the Bryant (Computer Systems: A Programmer's Perspective) ](#section-64-stopping-at-643-of-the-bryant-computer-systems-a-programmers-perspective)
 - [Section 6.4 (6.4.3-end) of the Bryant (Computer Systems: A Programmer's Perspective)](#section-64-643-end-of-the-bryant-computer-systems-a-programmers-perspective)
 
+**Week 3:**
+
+- [9.1-9.5 and 9.6.2 of the Bryant (Computer Systems: A Programmer's Perspective)]
+-
+
 # Chapter 1.6
 
 ## Response time
@@ -487,3 +492,87 @@ Here is the basic approach we use to try to ensure that our code is cache friend
 2. Minimize the number of cache misses in each inner loop.All other things being
    equal, such as the total number of loads and stores, loops with better miss rates
    will run faster.
+
+# 9.1-9.5 and 9.6.2 of the Bryant (Computer Systems: A Programmer's Perspective)
+
+## 9.1 Physical and Virtual Addressing
+
+The main memory of a computer system is organized as an array of M contiguous
+byte-size cells. Each byte has a unique physical address (PA). The first byte has
+an address of 0, the next byte an address of 1, the next byte an address of 2,
+and so on. Given this simple organization, the most natural way for a CPU to
+access memory would be to use physical addresses. We call this approach physical
+addressing. Figure 9.1 shows an example of physical addressing in the context of
+a load instruction that reads the 4-byte word starting at physical address 4. When
+the CPU executes the load instruction, it generates an effective physical address
+and passes it to main memory over the memory bus. The main memory fetches the
+4-byte word starting at physical address 4 and returns it to the CPU, which stores
+it in a register.
+
+Early PCs used physical addressing, and systems such as digital signal processors, embedded microcontrollers, and Cray supercomputers continue to do so.
+
+**However, modern processors use a form of addressing known as virtual addressing, as shown in Figure 9.2.**
+
+![](assets/20221020112652.jpg)
+
+> With virtual addressing, the CPU accesses main memory by generating a virtual address (VA), which is converted to the appropriate physical address before
+> being sent to main memory. The task of converting a virtual address to a physical
+> one is known as **address translation**.
+
+Like exception handling, address translation
+requires close cooperation between the CPU hardware and the operating system. Dedicated hardware on the CPU chip called the memory management unit
+(MMU)translates virtual addresses on the fly, using a lookup table stored in main
+memory whose contents are managed by the operating system.
+
+## 9.2 Address Spaces
+
+An address space is an ordered set of nonnegative integer addresses
+`{0, 1, 2,...}`
+
+If the integers in the address space are consecutive, then we say that it is a linear
+address space. To simplify our discussion, we will always assume linear address
+spaces.
+
+In a system with virtual memory, the CPU generates virtual addresses from
+an address space of `N = 2^n` addresses called the virtual address space:
+`{0, 1, 2,...,N − 1}`
+
+The size of an address space is characterized by the number of bits that are
+needed to represent the largest address. For example, a virtual address space
+with `N = 2^n` addresses is called an n-bit address space. Modern systems typically
+support either 32-bit or 64-bit virtual address spaces.
+
+A system also has a physical address space that corresponds to the `M` bytes of
+physical memory in the system:
+`{0, 1, 2,...,M − 1}`
+
+## 9.3 VM as a Tool for Caching
+
+Conceptually, a virtual memory is organized as an array of N contiguous byte-size
+cells stored on disk. Each byte has a unique virtual address that serves as an index
+into the array. The contents of the array on disk are cached in main memory. As
+with any other cache in the memory hierarchy, the data on disk (the lower level)
+is partitioned into blocks that serve as the transfer units between the disk and
+the main memory (the upper level). VM systems handle this by partitioning the
+virtual memory into fixed-size blocks called virtual pages (VPs).
+
+Each virtual page
+is `P = 2^p` bytes in size. Similarly, physical memory is partitioned into physical pages
+(PPs), also P bytes in size. (Physical pages are also referred to as page frames.)
+At any point in time, the set of virtual pages is partitioned into three disjoint
+subsets:
+
+- Unallocated. Pages that have not yet been allocated (or created) by the VM
+  system. Unallocated blocks do not have any data associated with them,
+  and thus do not occupy any space on disk.
+- Cached. Allocated pages that are currently cached in physical memory.
+- Uncached. Allocated pages that are not cached in physical memory
+  ![](assets/20221020113951.jpg)
+
+## 9.4 VM as a Tool for Memory Management
+
+## 9.5 VM as a Tool for Memory Protection
+
+## 9.6 Address Translation
+
+![](assets/20221020113310.jpg)
